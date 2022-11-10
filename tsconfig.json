@@ -3,7 +3,7 @@
     /* Visit https://aka.ms/tsconfig to read more about this file */
     "target": "es2016",
     "lib": ["DOM", "ESNext"],
-    "module": "commonjs",
+    "module": "ESNext",
     "moduleResolution": "node",
     "baseUrl": "./",
     "resolveJsonModule": true,
