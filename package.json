@@ -2,7 +2,8 @@
   "name": "calendar",
   "version": "1.0.0",
   "description": "generate calendar data 🚀！",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "rollup -c --bundleConfigAsCjs"
   },
