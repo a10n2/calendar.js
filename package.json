@@ -5,6 +5,10 @@
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "exports": {
+    "require": "./dist/index.com.js",
+    "import": "./dist/index.esm.js"
+  },
   "scripts": {
     "build": "rollup -c --bundleConfigAsCjs"
   },
