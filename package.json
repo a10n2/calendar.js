@@ -2,6 +2,7 @@
   "name": "calendar",
   "version": "1.0.0",
   "description": "generate calendar data 🚀！",
+  "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
