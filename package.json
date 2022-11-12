@@ -1,5 +1,5 @@
 {
-  "name": "calendarjs",
+  "name": "@yankit/calendarjs",
   "version": "0.0.1",
   "description": "generate calendar data 🚀！",
   "type": "module",
@@ -12,13 +12,17 @@
   "scripts": {
     "build": "rollup -c --bundleConfigAsCjs"
   },
+  "files": [
+    "dist",
+    "src"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/a10n2/calendar.js.git"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/a10n2/calendar.js/issues"
   },
