@@ -1,6 +1,6 @@
 {
-  "name": "calendar",
-  "version": "1.0.0",
+  "name": "calendarjs",
+  "version": "0.0.1",
   "description": "generate calendar data 🚀！",
   "type": "module",
   "main": "./dist/index.js",
