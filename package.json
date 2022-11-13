@@ -13,8 +13,7 @@
     "build": "rollup -c --bundleConfigAsCjs"
   },
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "repository": {
     "type": "git",
