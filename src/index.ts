@@ -1,5 +1,12 @@
 import { getDays } from './utils'
 
+/**
+ * get month calendar array!
+ * ps: use getDay() function, `new Date()` month is use [0 - 11], not is [1 - 12]
+ * @param year current year
+ * @param month current month
+ * @returns [[year, month, date]...] (length: 35)
+ */
 export function getSimpleCalendar(
   year: number,
   month: number
@@ -46,3 +53,10 @@ export function getSimpleCalendar(
 
   return simpleCalendar
 }
+
+/**
+ * TODO
+ * provide a calendar operation to user
+ * you can get last year or last month or next year or next month calendar
+ */
+export class Calendar {}
