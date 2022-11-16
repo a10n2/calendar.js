@@ -1,4 +1,4 @@
-lockfileVersion: 5.4
+lockfileVersion: 5.3
 
 specifiers:
   rollup: ^3.2.5
@@ -8,7 +8,7 @@ specifiers:
 
 devDependencies:
   rollup: 3.2.5
-  rollup-plugin-typescript2: 0.34.1_oa2candk7eitu7usnsurwiyuuu
+  rollup-plugin-typescript2: 0.34.1_rollup@3.2.5+typescript@4.8.4
   tslib: 2.4.1
   typescript: 4.8.4
 
@@ -133,7 +133,7 @@ packages:
       find-up: 4.1.0
     dev: true
 
-  /rollup-plugin-typescript2/0.34.1_oa2candk7eitu7usnsurwiyuuu:
+  /rollup-plugin-typescript2/0.34.1_rollup@3.2.5+typescript@4.8.4:
     resolution: {integrity: sha512-P4cHLtGikESmqi1CA+tdMDUv8WbQV48mzPYt77TSTOPJpERyZ9TXdDgjSDix8Fkqce6soYz3+fa4lrC93IEkcw==}
     peerDependencies:
       rollup: '>=1.26.3'

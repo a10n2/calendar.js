@@ -1,5 +1,11 @@
 import { getDays } from './utils'
 
+interface ICalendarItem {
+  year: number
+  month: number
+  date: number
+}
+
 /**
  * get month calendar array!
  * ps: use getDay() function, `new Date()` month is use [0 - 11], not is [1 - 12]
@@ -52,6 +58,24 @@ export function getSimpleCalendar(
   }
 
   return simpleCalendar
+}
+
+/**
+ * get calendar! array item is object
+ * @param year number
+ * @param month number
+ * @returns
+ */
+export function getCalendar(year: number, month: number): ICalendarItem[] {
+  const simpleCalendar = getSimpleCalendar(year, month)
+  const calendar = simpleCalendar.map(val => {
+    return {
+      year: val[0],
+      month: val[1],
+      date: val[2],
+    }
+  })
+  return calendar
 }
 
 /**
