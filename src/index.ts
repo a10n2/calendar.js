@@ -4,7 +4,7 @@ import {
   getCorrectYearAndMonthOfAfter,
 } from './utils'
 
-interface ICalendarItem {
+interface CalendarItem {
   year: number
   month: number
   date: number
@@ -19,7 +19,17 @@ interface CalendarOptions {
 interface CalendarCache {
   year: number
   month: number
-  calendar: any[]
+  calendar: ReturnCalendar
+}
+
+type SimpleCalendar = [number, number, number][]
+type ComplexCalendar = CalendarItem[]
+type ReturnCalendar = SimpleCalendar | ComplexCalendar
+
+const _cache: CalendarCache = {
+  year: new Date().getFullYear(),
+  month: new Date().getMonth() + 1,
+  calendar: [],
 }
 
 /**
@@ -29,11 +39,8 @@ interface CalendarCache {
  * @param month current month
  * @returns [[year, month, date]...] (length: 35)
  */
-export function getSimpleCalendar(
-  year: number,
-  month: number
-): Array<number[]> {
-  const simpleCalendar: Array<number[]> = []
+export function getSimpleCalendar(year: number, month: number): SimpleCalendar {
+  const simpleCalendar: SimpleCalendar = []
   const currentMonthDays = getDays(year, month)
 
   // 先获取当前月的上一个月的和下一个月的月头以及月尾
@@ -82,7 +89,7 @@ export function getSimpleCalendar(
  * @param month number
  * @returns
  */
-export function getCalendar(year: number, month: number): ICalendarItem[] {
+export function getCalendar(year: number, month: number): CalendarItem[] {
   const simpleCalendar = getSimpleCalendar(year, month)
   const calendar = simpleCalendar.map(val => {
     return {
@@ -101,10 +108,8 @@ export function getCalendar(year: number, month: number): ICalendarItem[] {
 export class Calendar {
   public currentYear: number
   public currentMonth: number
-  public currentCalendar: any[] = []
+  public currentCalendar: ReturnCalendar
   public type: 'simple' | 'complex' = 'simple'
-
-  public cache: CalendarCache
 
   constructor(options: CalendarOptions) {
     this.type = options.type ?? 'simple'
@@ -116,11 +121,9 @@ export class Calendar {
         ? getSimpleCalendar(this.currentYear, this.currentMonth)
         : getCalendar(this.currentYear, this.currentMonth)
 
-    this.cache = {
-      year: this.currentYear,
-      month: this.currentMonth,
-      calendar: this.currentCalendar,
-    }
+    _cache.year = this.currentYear
+    _cache.month = this.currentMonth
+    _cache.calendar = this.currentCalendar
   }
 
   // 更新年月时间
@@ -130,15 +133,15 @@ export class Calendar {
   }
 
   // 复原年月份
-  public restoreCalendar(): any {
-    this.currentYear = this.cache.year
-    this.currentMonth = this.cache.month
-    this.currentCalendar = this.cache.calendar
+  public restoreCalendar(): Calendar {
+    this.currentYear = _cache.year
+    this.currentMonth = _cache.month
+    this.currentCalendar = _cache.calendar
     return this
   }
 
   // 获取上个月的日历数据
-  public getPreMonthCalendar(): any[] {
+  public getPreMonthCalendar(): ReturnCalendar {
     const { year: _year, month: _month } = getCorrectYearAndMonthOfPre(
       this.currentYear,
       this.currentMonth
@@ -153,7 +156,7 @@ export class Calendar {
     }
   }
   // 获取下一个月的日历数据
-  public getAfterMonthCalendar(): any[] {
+  public getAfterMonthCalendar(): ReturnCalendar {
     const { year: _year, month: _month } = getCorrectYearAndMonthOfAfter(
       this.currentYear,
       this.currentMonth
