@@ -2,7 +2,6 @@
   "name": "@yankit/calendarjs",
   "version": "0.0.1",
   "description": "generate calendar data 🚀！",
-  "type": "module",
   "main": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
   "exports": {
