@@ -10,6 +10,18 @@ interface ICalendarItem {
   date: number
 }
 
+interface CalendarOptions {
+  type?: 'simple' | 'complex'
+  year?: number
+  month?: number
+}
+
+interface CalendarCache {
+  year: number
+  month: number
+  calendar: any[]
+}
+
 /**
  * get month calendar array!
  * ps: use getDay() function, `new Date()` month is use [0 - 11], not is [1 - 12]
@@ -87,22 +99,52 @@ export function getCalendar(year: number, month: number): ICalendarItem[] {
  * you can get last year or last month or next year or next month calendar
  */
 export class Calendar {
-  public currentYear: number = new Date().getFullYear()
-  public currentMonth: number = new Date().getMonth() + 1
+  public currentYear: number
+  public currentMonth: number
+  public currentCalendar: any[] = []
   public type: 'simple' | 'complex' = 'simple'
-  constructor(type: 'simple' | 'complex') {
-    this.type = type
+
+  public cache: CalendarCache
+
+  constructor(options: CalendarOptions) {
+    this.type = options.type ?? 'simple'
+    this.currentMonth = options.month ?? new Date().getMonth() + 1
+    this.currentYear = options.year ?? new Date().getFullYear()
+
+    this.currentCalendar =
+      options.type === 'simple'
+        ? getSimpleCalendar(this.currentYear, this.currentMonth)
+        : getCalendar(this.currentYear, this.currentMonth)
+
+    this.cache = {
+      year: this.currentYear,
+      month: this.currentMonth,
+      calendar: this.currentCalendar,
+    }
+  }
+
+  // 更新年月时间
+  public updateYearAndMonth(year: number, month: number): void {
+    this.currentYear = year
+    this.currentMonth = month
+  }
+
+  // 复原年月份
+  public restoreCalendar(): any {
+    this.currentYear = this.cache.year
+    this.currentMonth = this.cache.month
+    this.currentCalendar = this.cache.calendar
   }
 
   // 获取上个月的日历数据
-  public getPreMonthCalendar(
-    year = this.currentYear,
-    month = this.currentMonth
-  ): any[] {
+  public getPreMonthCalendar(): any[] {
     const { year: _year, month: _month } = getCorrectYearAndMonthOfPre(
-      year,
-      month
+      this.currentYear,
+      this.currentMonth
     )
+
+    this.updateYearAndMonth(_year, _month)
+
     if (this.type === 'simple') {
       return getSimpleCalendar(_year, _month)
     } else {
@@ -110,14 +152,14 @@ export class Calendar {
     }
   }
   // 获取下一个月的日历数据
-  public getAfterMonthCalendar(
-    year = this.currentYear,
-    month = this.currentMonth
-  ): any[] {
+  public getAfterMonthCalendar(): any[] {
     const { year: _year, month: _month } = getCorrectYearAndMonthOfAfter(
-      year,
-      month
+      this.currentYear,
+      this.currentMonth
     )
+
+    this.updateYearAndMonth(_year, _month)
+
     if (this.type === 'simple') {
       return getSimpleCalendar(_year, _month)
     } else {
