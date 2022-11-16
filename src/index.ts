@@ -1,4 +1,8 @@
-import { getDays } from './utils'
+import {
+  getDays,
+  getCorrectYearAndMonthOfPre,
+  getCorrectYearAndMonthOfAfter,
+} from './utils'
 
 interface ICalendarItem {
   year: number
@@ -79,8 +83,45 @@ export function getCalendar(year: number, month: number): ICalendarItem[] {
 }
 
 /**
- * TODO
  * provide a calendar operation to user
  * you can get last year or last month or next year or next month calendar
  */
-export class Calendar {}
+export class Calendar {
+  public currentYear: number = new Date().getFullYear()
+  public currentMonth: number = new Date().getMonth() + 1
+  public type: 'simple' | 'complex' = 'simple'
+  constructor(type: 'simple' | 'complex') {
+    this.type = type
+  }
+
+  // 获取上个月的日历数据
+  public getPreMonthCalendar(
+    year = this.currentYear,
+    month = this.currentMonth
+  ): any[] {
+    const { year: _year, month: _month } = getCorrectYearAndMonthOfPre(
+      year,
+      month
+    )
+    if (this.type === 'simple') {
+      return getSimpleCalendar(_year, _month)
+    } else {
+      return getCalendar(_year, _month)
+    }
+  }
+  // 获取下一个月的日历数据
+  public getAfterMonthCalendar(
+    year = this.currentYear,
+    month = this.currentMonth
+  ): any[] {
+    const { year: _year, month: _month } = getCorrectYearAndMonthOfAfter(
+      year,
+      month
+    )
+    if (this.type === 'simple') {
+      return getSimpleCalendar(_year, _month)
+    } else {
+      return getCalendar(_year, _month)
+    }
+  }
+}
