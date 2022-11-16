@@ -4,27 +4,13 @@ import {
   getCorrectYearAndMonthOfAfter,
 } from './utils'
 
-interface CalendarItem {
-  year: number
-  month: number
-  date: number
-}
-
-interface CalendarOptions {
-  type?: 'simple' | 'complex'
-  year?: number
-  month?: number
-}
-
-interface CalendarCache {
-  year: number
-  month: number
-  calendar: ReturnCalendar
-}
-
-type SimpleCalendar = [number, number, number][]
-type ComplexCalendar = CalendarItem[]
-type ReturnCalendar = SimpleCalendar | ComplexCalendar
+import {
+  CalendarCache,
+  CalendarItem,
+  CalendarOptions,
+  SimpleCalendar,
+  ReturnCalendar,
+} from './type'
 
 const _cache: CalendarCache = {
   year: new Date().getFullYear(),
