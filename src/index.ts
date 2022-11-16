@@ -134,6 +134,7 @@ export class Calendar {
     this.currentYear = this.cache.year
     this.currentMonth = this.cache.month
     this.currentCalendar = this.cache.calendar
+    return this
   }
 
   // 获取上个月的日历数据

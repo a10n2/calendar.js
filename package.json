@@ -3,14 +3,15 @@
   "version": "0.0.1",
   "description": "generate calendar data 🚀！",
   "type": "module",
-  "main": "./dist/index.js",
+  "main": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
   "exports": {
     "require": "./dist/index.com.js",
     "import": "./dist/index.esm.js"
   },
   "scripts": {
-    "build": "rollup -c --bundleConfigAsCjs"
+    "build": "rollup -c --bundleConfigAsCjs",
+    "test": "node ./play.mjs"
   },
   "files": [
     "dist"
