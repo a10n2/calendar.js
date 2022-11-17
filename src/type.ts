@@ -2,6 +2,7 @@ export interface CalendarItem {
   year: number
   month: number
   date: number
+  isToday: boolean
 }
 
 export interface CalendarOptions {
@@ -16,6 +17,6 @@ export interface CalendarCache {
   calendar: ReturnCalendar
 }
 
-export type SimpleCalendar = [number, number, number][]
+export type SimpleCalendar = [number, number, number, boolean][]
 export type ComplexCalendar = CalendarItem[]
 export type ReturnCalendar = SimpleCalendar | ComplexCalendar

@@ -9,7 +9,7 @@
     "import": "./dist/index.esm.js"
   },
   "scripts": {
-    "build": "rollup -c --bundleConfigAsCjs",
+    "build": "rimraf dist & rollup -c --bundleConfigAsCjs",
     "test": "node ./play.mjs"
   },
   "files": [
@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/a10n2/calendar.js#readme",
   "devDependencies": {
+    "rimraf": "^3.0.2",
     "rollup": "^3.2.5",
     "rollup-plugin-typescript2": "^0.34.1",
     "tslib": "^2.4.1",

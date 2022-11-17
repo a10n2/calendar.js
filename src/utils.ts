@@ -43,3 +43,12 @@ export function getCorrectYearAndMonthOfAfter(
     return { year, month: month + 1 }
   }
 }
+
+export function isToday(val: [number, number, number]): boolean {
+  const d = new Date()
+  return (
+    d.getFullYear() === val[0] &&
+    d.getMonth() + 1 === val[1] &&
+    d.getDate() === val[2]
+  )
+}

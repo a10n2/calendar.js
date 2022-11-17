@@ -1,4 +1,4 @@
-import { Calendar } from './dist/index.esm.js'
+const Calendar = require('./dist/index.com.js')
 
 const calendar = new Calendar({
   year: new Date().getFullYear(),

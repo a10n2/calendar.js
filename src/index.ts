@@ -2,6 +2,7 @@ import {
   getDays,
   getCorrectYearAndMonthOfPre,
   getCorrectYearAndMonthOfAfter,
+  isToday,
 } from './utils'
 
 import {
@@ -25,7 +26,7 @@ const _cache: CalendarCache = {
  * @param month current month
  * @returns [[year, month, date]...] (length: 35)
  */
-export function getSimpleCalendar(year: number, month: number): SimpleCalendar {
+function getSimpleCalendar(year: number, month: number): SimpleCalendar {
   const simpleCalendar: SimpleCalendar = []
   const currentMonthDays = getDays(year, month)
 
@@ -53,17 +54,23 @@ export function getSimpleCalendar(year: number, month: number): SimpleCalendar {
       preMonth === 12 ? preYear : year,
       preMonth,
       preMonthDays - i,
+      false,
     ])
   }
 
   // 补齐当月的数据
   for (let i = 1; i <= currentMonthDays; i++) {
-    simpleCalendar.push([year, month, i])
+    simpleCalendar.push([year, month, i, isToday([year, month, i])])
   }
 
   // 获取后面缺失的几天
   for (let i = 1; i <= 6 - currentMonthLastDayWeek; i++) {
-    simpleCalendar.push([afterMonth === 1 ? afterYear : year, afterMonth, i])
+    simpleCalendar.push([
+      afterMonth === 1 ? afterYear : year,
+      afterMonth,
+      i,
+      false,
+    ])
   }
 
   return simpleCalendar
@@ -75,13 +82,14 @@ export function getSimpleCalendar(year: number, month: number): SimpleCalendar {
  * @param month number
  * @returns
  */
-export function getCalendar(year: number, month: number): CalendarItem[] {
+function getCalendar(year: number, month: number): CalendarItem[] {
   const simpleCalendar = getSimpleCalendar(year, month)
   const calendar = simpleCalendar.map(val => {
     return {
       year: val[0],
       month: val[1],
       date: val[2],
+      isToday: val[3],
     }
   })
   return calendar
@@ -91,7 +99,7 @@ export function getCalendar(year: number, month: number): CalendarItem[] {
  * provide a calendar operation to user
  * you can get last year or last month or next year or next month calendar
  */
-export class Calendar {
+export default class Calendar {
   public currentYear: number
   public currentMonth: number
   public currentCalendar: ReturnCalendar
@@ -112,12 +120,6 @@ export class Calendar {
     _cache.calendar = this.currentCalendar
   }
 
-  // 更新年月时间
-  public updateYearAndMonth(year: number, month: number): void {
-    this.currentYear = year
-    this.currentMonth = month
-  }
-
   // 复原年月份
   public restoreCalendar(): Calendar {
     this.currentYear = _cache.year
@@ -133,7 +135,8 @@ export class Calendar {
       this.currentMonth
     )
 
-    this.updateYearAndMonth(_year, _month)
+    this.currentYear = _year
+    this.currentMonth = _month
 
     if (this.type === 'simple') {
       return getSimpleCalendar(_year, _month)
@@ -148,7 +151,8 @@ export class Calendar {
       this.currentMonth
     )
 
-    this.updateYearAndMonth(_year, _month)
+    this.currentYear = _year
+    this.currentMonth = _month
 
     if (this.type === 'simple') {
       return getSimpleCalendar(_year, _month)
