@@ -13,3 +13,5 @@ console.log(calendar.getPreMonthCalendar())
 console.log(calendar.getPreMonthCalendar())
 
 console.log(calendar.restoreCalendar().currentCalendar)
+
+console.log(calendar.getAfterYearCalendar())

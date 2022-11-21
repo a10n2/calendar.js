@@ -160,4 +160,23 @@ export default class Calendar {
       return getCalendar(_year, _month)
     }
   }
+
+  // 获取去年这个月的日历数据
+  public getPreYearCalendar(): ReturnCalendar {
+    --this.currentYear
+    if (this.type === 'simple') {
+      return getSimpleCalendar(this.currentYear, this.currentMonth)
+    } else {
+      return getCalendar(this.currentYear, this.currentMonth)
+    }
+  }
+  // 获取明年这个月的日历数据
+  public getAfterYearCalendar(): ReturnCalendar {
+    ++this.currentYear
+    if (this.type === 'simple') {
+      return getSimpleCalendar(this.currentYear, this.currentMonth)
+    } else {
+      return getCalendar(this.currentYear, this.currentMonth)
+    }
+  }
 }
