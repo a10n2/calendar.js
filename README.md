@@ -2,12 +2,6 @@
 
 generate calendar data 🚀！
 
-## install
-
-```bash
-npm install @yankit/calendarjs
-```
-
 ## Usage
 
 ```js
